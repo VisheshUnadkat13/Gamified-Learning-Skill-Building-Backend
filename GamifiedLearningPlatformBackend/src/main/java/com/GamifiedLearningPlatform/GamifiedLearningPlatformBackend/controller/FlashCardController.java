@@ -5,17 +5,14 @@ import com.GamifiedLearningPlatform.GamifiedLearningPlatformBackend.service.Flas
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/flashcards")
-
+@CrossOrigin(origins = "http://localhost:5173")
 public class FlashCardController {
 
     @Autowired
@@ -47,10 +44,24 @@ public class FlashCardController {
         return new ResponseEntity<>(flashCardService.getByLanguage(lang),HttpStatus.OK);
     }
 
-    @GetMapping("/difficulty/{level}")
+    @GetMapping(" ")
     public ResponseEntity<List<FlashCard>> getByDifficulty(@PathVariable String level)
     {
         return new ResponseEntity<>(flashCardService.getByDifficulty(level),HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<?> addFlashCard(@RequestBody FlashCard card)
+    {
+        FlashCard addFlashCard=null;
+        try{
+            addFlashCard =flashCardService.addFlashCard(card);
+            return new ResponseEntity<>(addFlashCard,HttpStatus.CREATED);
+        }
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

@@ -23,4 +23,8 @@ public class McqQuestionService {
     public Optional<McqQuestion> getMcqQuestionById(Long id) {
         return mcqQuestionRepo.findById(id);
     }
+
+    public void deleteMcqQuestion(Long id) {
+        mcqQuestionRepo.deleteById(id);
+    }
 }

@@ -32,4 +32,8 @@ public class FlashCardService {
     public List<FlashCard> getByDifficulty(String level) {
         return flashCardRepo.findByDifficulty(level);
     }
+
+    public FlashCard addFlashCard(FlashCard card) {
+        return flashCardRepo.save(card);
+    }
 }

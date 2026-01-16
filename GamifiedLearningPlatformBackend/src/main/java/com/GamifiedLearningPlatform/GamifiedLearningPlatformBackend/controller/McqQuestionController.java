@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/mcq")
-@CrossOrigin(origins = "http://localhost:5174")
+@CrossOrigin(origins = "http://localhost:5173")
 public class McqQuestionController {
 
     @Autowired
@@ -31,6 +31,19 @@ public class McqQuestionController {
         if(mcqQuestion.isPresent())
         {
             return new ResponseEntity<>(mcqQuestion,HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteMcqQuestion(@PathVariable Long id)
+    {
+        Optional<McqQuestion> mcqQuestion=mcqQuestionService.getMcqQuestionById(id);
+        if(mcqQuestion.isPresent())
+        {
+            mcqQuestionService.deleteMcqQuestion(id);
+            return new ResponseEntity<>("Deleted",HttpStatus.OK);
         }
         else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
