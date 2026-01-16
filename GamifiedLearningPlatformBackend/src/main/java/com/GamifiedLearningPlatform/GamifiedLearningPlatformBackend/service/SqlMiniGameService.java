@@ -1,6 +1,5 @@
 package com.GamifiedLearningPlatform.GamifiedLearningPlatformBackend.service;
 
-
 import com.GamifiedLearningPlatform.GamifiedLearningPlatformBackend.model.SqlMinigGame;
 import com.GamifiedLearningPlatform.GamifiedLearningPlatformBackend.repo.SqlMiniGameRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ public class SqlMiniGameService {
     @Autowired
     private SqlMiniGameRepo sqlMiniGameRepo;
 
-
     public List<SqlMinigGame> getAllSqlQuestion() {
         return sqlMiniGameRepo.findAll();
     }
@@ -26,5 +24,10 @@ public class SqlMiniGameService {
 
     public void deleteSqlQuestion(Long id) {
         sqlMiniGameRepo.deleteById(id);
+    }
+
+    public SqlMinigGame addMinigGame(SqlMinigGame minigGame) {
+        return sqlMiniGameRepo.save(minigGame);
+
     }
 }

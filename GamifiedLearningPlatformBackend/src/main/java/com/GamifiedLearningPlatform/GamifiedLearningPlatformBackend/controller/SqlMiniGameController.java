@@ -21,37 +21,44 @@ public class SqlMiniGameController {
     private SqlMiniGameService sqlMiniGameService;
 
     @GetMapping
-    public ResponseEntity<List<SqlMinigGame>> getAllSqlQuestion()
-    {
+    public ResponseEntity<List<SqlMinigGame>> getAllSqlQuestion() {
         return new ResponseEntity<>(sqlMiniGameService.getAllSqlQuestion(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<SqlMinigGame>> getSqlMiniGameById(@PathVariable Long id)
-    {
-        Optional<SqlMinigGame> sqlMinigGame=sqlMiniGameService.getSqlMiniGameById(id);
-        if(sqlMinigGame.isPresent())
-        {
-            return new ResponseEntity<>(sqlMinigGame,HttpStatus.OK);
-        }
-        else{
+    public ResponseEntity<Optional<SqlMinigGame>> getSqlMiniGameById(@PathVariable Long id) {
+        Optional<SqlMinigGame> sqlMinigGame = sqlMiniGameService.getSqlMiniGameById(id);
+        if (sqlMinigGame.isPresent()) {
+            return new ResponseEntity<>(sqlMinigGame, HttpStatus.OK);
+        } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteSqlQuestion(@PathVariable Long id)
-    {
-        Optional<SqlMinigGame> sqlMinigGame=sqlMiniGameService.getSqlMiniGameById(id);
-        if(sqlMinigGame.isPresent())
-        {
+    public ResponseEntity<String> deleteSqlQuestion(@PathVariable Long id) {
+        Optional<SqlMinigGame> sqlMinigGame = sqlMiniGameService.getSqlMiniGameById(id);
+        if (sqlMinigGame.isPresent()) {
             sqlMiniGameService.deleteSqlQuestion(id);
-            return new ResponseEntity<>("Deleted",HttpStatus.OK);
-        }
-        else{
+            return new ResponseEntity<>("Deleted", HttpStatus.OK);
+        } else {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
+    @PostMapping
+    public ResponseEntity<?> addSqlMiniGame(@RequestBody SqlMinigGame minigGame) {
+        SqlMinigGame addMinigGame = null;
+
+        try {
+            addMinigGame = sqlMiniGameService.addMinigGame(minigGame);
+            return new ResponseEntity<>(addMinigGame, HttpStatus.CREATED);
+        }
+
+        catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
 
 }
