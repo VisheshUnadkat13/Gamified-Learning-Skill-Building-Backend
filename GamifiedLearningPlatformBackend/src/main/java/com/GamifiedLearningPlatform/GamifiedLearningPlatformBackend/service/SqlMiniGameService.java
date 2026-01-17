@@ -30,4 +30,16 @@ public class SqlMiniGameService {
         return sqlMiniGameRepo.save(minigGame);
 
     }
+
+    public List<SqlMinigGame> getByDifficulty(String diff) {
+        return sqlMiniGameRepo.findByDifficulty(diff);
+    }
+
+    public List<SqlMinigGame> getByCategory(String category) {
+        return sqlMiniGameRepo.findByCategory(category);
+    }
+
+    public List<SqlMinigGame> getByXpReward(Integer xp) {
+        return sqlMiniGameRepo.findByXpReward(xp);
+    }
 }

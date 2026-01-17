@@ -35,6 +35,24 @@ public class SqlMiniGameController {
         }
     }
 
+     @GetMapping("/difficulty/{diff}")
+     public ResponseEntity<List<SqlMinigGame>> getByDifficulty(@PathVariable String diff)
+     {
+         return new ResponseEntity<>(sqlMiniGameService.getByDifficulty(diff),HttpStatus.OK);
+     }
+
+     @GetMapping("/category/{category}")
+     public ResponseEntity<List<SqlMinigGame>> getByCategory(@PathVariable String category)
+     {
+         return new ResponseEntity<>(sqlMiniGameService.getByCategory(category),HttpStatus.OK);
+     }
+
+     @GetMapping("/xp-reward/{xp}")
+     public ResponseEntity<List<SqlMinigGame>> getByXpReward(@PathVariable Integer xp)
+     {
+         return new ResponseEntity<>(sqlMiniGameService.getByXpReward(xp),HttpStatus.OK);
+     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteSqlQuestion(@PathVariable Long id) {
         Optional<SqlMinigGame> sqlMinigGame = sqlMiniGameService.getSqlMiniGameById(id);

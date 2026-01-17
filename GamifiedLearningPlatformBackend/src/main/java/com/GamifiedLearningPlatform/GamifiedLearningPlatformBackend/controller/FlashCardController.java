@@ -39,7 +39,7 @@ public class FlashCardController {
         return new ResponseEntity<>(flashCardService.getByLanguage(lang), HttpStatus.OK);
     }
 
-    @GetMapping(" ")
+    @GetMapping("difficulty/{level}")
     public ResponseEntity<List<FlashCard>> getByDifficulty(@PathVariable String level) {
         return new ResponseEntity<>(flashCardService.getByDifficulty(level), HttpStatus.OK);
     }
